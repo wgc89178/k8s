@@ -6,6 +6,7 @@ pipeline {
     stages {
         stage("拉取Git代码") {
             steps {
+                deleteDir()
 		checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: '43bd30d7-cc06-4ae8-bf07-e033d7450527', url: 'https://github.com/wgc89178/k8s.git']])
 		echo '拉取成功'
             }
@@ -14,7 +15,7 @@ pipeline {
         stage("制作自定义镜像并且发布到Harbor") {
             steps {
                 sh '''
-			cd /root/.jenkins/workspace/t03
+			cd /root/.jenkins/workspace/t04
 			docker build -t 172.26.240.210/repo/nginx:1.20.2 .
 　　　　　　　　　　	#docker login -u wgc89178 -p Harbor12345 172.26.240.210
 　　　　　　　　　　　　docker push 172.26.240.210/repo/nginx:1.20.2'''
