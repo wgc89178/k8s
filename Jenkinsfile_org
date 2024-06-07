@@ -7,14 +7,18 @@ pipeline {
         stage("拉取Git代码") {
             steps {
 		checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: '43bd30d7-cc06-4ae8-bf07-e033d7450527', url: 'https://github.com/wgc89178/k8s.git']])
+		echo '拉取成功'
             }
         }
 
         stage("制作自定义镜像并且发布到Harbor") {
             steps {
-                sh '''docker build -t 172.26.240.210:80/repo/nginx:1.20.1 .
-　　　　　　　　　　docker login -u wgc89178 -p Harbor12345 172.26.240.210:80
+                sh '''
+			cd /root/.jenkins/workspace/t02
+			docker build -t 172.26.240.210:80/repo/nginx:1.20.1 .
+　　　　　　　　　　	docker login -u wgc89178 -p Harbor12345 172.26.240.210:80
 　　　　　　　　　　　　docker push 172.26.240.210:80/repo/nginx:1.20.1'''
+			echo '打包上传成功'
             }
         }
 
