@@ -12,9 +12,9 @@ pipeline {
 
         stage("制作自定义镜像并且发布到Harbor") {
             steps {
-                sh '''docker build -t 172.26.240.210:80/repo/nginx:1.20.0 .
+                sh '''docker build -t 172.26.240.210:80/repo/nginx:1.20.1 .
 　　　　　　　　　　docker login -u wgc89178 -p Harbor12345 172.26.240.210:80
-　　　　　　　　　　　　docker push 172.26.240.210:80/repo/nginx:1.20.0'''
+　　　　　　　　　　　　docker push 172.26.240.210:80/repo/nginx:1.20.1'''
             }
         }
 
