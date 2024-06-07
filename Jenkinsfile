@@ -1,10 +1,6 @@
 pipeline {
     // jenkins集群中的任一节点
     agent any
-    environment {
-	JOB_NAME = nginx
-	tag = 1.0	
-   }
 
     // 存放所有任务集合
     stages {
@@ -16,9 +12,9 @@ pipeline {
 
         stage("制作自定义镜像并且发布到Harbor") {
             steps {
-                sh '''docker build -t 172.26.240.210:80/repo/${JOB_NAME}:$tag .
+                sh '''docker build -t 172.26.240.210:80/repo/nginx:1.20.0 .
 　　　　　　　　　　docker login -u wgc89178 -p Harbor12345 172.26.240.210:80
-　　　　　　　　　　　　docker push 172.26.240.210:80/repo/${JOB_NAME}:$tag'''
+　　　　　　　　　　　　docker push 172.26.240.210:80/repo/nginx:1.20.0'''
             }
         }
 
