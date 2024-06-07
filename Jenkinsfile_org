@@ -16,8 +16,8 @@ pipeline {
             steps {
                 sh '''
 			cd /root/.jenkins/workspace/t04
-			docker build -t 172.26.240.210/repo/nginx:1.20.2 .
-　　　　　　　　　　　　docker push 172.26.240.210/repo/nginx:1.20.2'''
+			docker build -t 172.26.240.210/library/nginx:1.20.2 .
+　　　　　　　　　　　　docker push 172.26.240.210/library/nginx:1.20.2'''
 			echo '打包上传成功'
             }
         }
@@ -25,7 +25,7 @@ pipeline {
         stage("通知远程服务器拉取镜像，进行部署") {
             steps {
 		sh '''
-                        docker run -d -p 9999:80 --name nginx_test 172.26.240.210/repo/nginx:1.20.2'''
+                        docker run -d -p 9999:80 --name nginx_test 172.26.240.210/library/nginx:1.20.2'''
 			echo "运行镜像OK"
             }
         }
