@@ -15,18 +15,17 @@ pipeline {
             steps {
                 sh '''
 			cd /root/.jenkins/workspace/t02
-			docker build -t 172.26.240.210:80/repo/nginx:1.20.1 .
+			docker build -t 172.26.240.210/repo/nginx:1.20.2 .
 　　　　　　　　　　	#docker login -u wgc89178 -p Harbor12345 172.26.240.210:80
-　　　　　　　　　　　　docker push 172.26.240.210:80/repo/nginx:1.20.1'''
+　　　　　　　　　　　　docker push 172.26.240.210/repo/nginx:1.20.2'''
 			echo '打包上传成功'
             }
         }
 
         stage("通知远程服务器拉取镜像，进行部署") {
             steps {
-                sshPublisher(publishers: [sshPublisherDesc(configName: 'server02', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '''cd /usr/local/test
-　　　　　　　　　　chmod a+x deploy.sh
-　　　　　　　　　　./deploy.sh 172.26.240.210:80 repo ${JOB_NAME} $tag $host_port $container_port''', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: 'deploy.sh')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+　　　　　　　　　　echo "运行镜像"
+                        docker run -d -p 9999:80 --name nginx_test 172.26.240.210/repo/nginx:1.20.2
             }
         }
 
