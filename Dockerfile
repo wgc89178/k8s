@@ -1,4 +1,3 @@
-[root@k8s-master base-image]# cat Dockerfile
 FROM centos:centos7.9.2009
 
 LABEL maintainer="OPS_MX"
