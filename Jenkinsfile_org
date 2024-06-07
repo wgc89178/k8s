@@ -12,13 +12,22 @@ pipeline {
             }
         }
 
-        stage("制作自定义镜像并且发布到Harbor") {
+        stage("制作自定义镜像") {
             steps {
                 sh '''
 			cd /root/.jenkins/workspace/t04
 			docker build -t 172.26.240.210/library/nginx:1.20.2 .
-　　　　　　　　　　　　docker push 172.26.240.210/library/nginx:1.20.2'''
 			echo '打包上传成功'
+			'''
+            }
+        }
+
+        stage("制作发布到Harbor") {
+            steps {
+                sh '''
+　　　　　　　　　　　　docker push 172.26.240.210/library/nginx:1.20.2
+			echo '打包上传成功'
+			'''
             }
         }
 
