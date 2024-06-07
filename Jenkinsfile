@@ -1,6 +1,10 @@
 pipeline {
     // jenkins集群中的任一节点
     agent any
+    environment {
+	JOB_NAME = nginx
+	tag = 1.0	
+   }
 
     // 存放所有任务集合
     stages {
