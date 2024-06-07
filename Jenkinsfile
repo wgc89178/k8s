@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage("拉取Git代码") {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '${tag}']], extensions: [], userRemoteConfigs: [[credentialsId: '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', url: 'https://github.com/wgc89178/k8s.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: '${tag}']], extensions: [], userRemoteConfigs: [[credentialsId: 'efcb36ce-ecda-45b3-b749-f0b66ec0b9ac', url: 'https://github.com/wgc89178/k8s.git']]])
             }
         }
 
