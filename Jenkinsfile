@@ -12,11 +12,6 @@ pipeline {
         JENKINS_HOME='/root/.jenkins/workspace/t01'
     }
 
-    // 工具，这是我在 jenkins 的全局配置配的，之前的博客有讲过
-    tools{
-        maven 'maven-3.8.4'
-    }
-    
     
     stages {
         stage('拉取代码') {
