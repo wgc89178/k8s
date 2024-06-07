@@ -19,7 +19,7 @@ pipeline {
                 // 清除工作空间
                 deleteDir()
                 // 拉取代码 gitTag 是 之前自定义的 字符串参数
-		checkout([$class: 'GitSCM', branches: [[name: '${tag}']], extensions: [], userRemoteConfigs: [[credentialsId: 'efcb36ce-ecda-45b3-b749-f0b66ec0b9ac', url: 'https://github.com/wgc89178/k8s.git']]])
+		checkout([$class: 'GitSCM', branches: [[name: '${tag}']], extensions: [], userRemoteConfigs: [[credentialsId: '43bd30d7-cc06-4ae8-bf07-e033d7450527', url: 'https://github.com/wgc89178/k8s.git']]])
                 echo '拉取成功'
             }
         }
