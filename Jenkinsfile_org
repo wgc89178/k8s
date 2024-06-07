@@ -16,7 +16,7 @@ pipeline {
                 sh '''
 			cd /root/.jenkins/workspace/t02
 			docker build -t 172.26.240.210/repo/nginx:1.20.2 .
-　　　　　　　　　　	#docker login -u wgc89178 -p Harbor12345 172.26.240.210:80
+　　　　　　　　　　	docker login -u wgc89178 -p Harbor12345 172.26.240.210
 　　　　　　　　　　　　docker push 172.26.240.210/repo/nginx:1.20.2'''
 			echo '打包上传成功'
             }
