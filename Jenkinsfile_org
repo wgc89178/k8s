@@ -15,11 +15,11 @@ pipeline {
         stage("制作自定义镜像") {
             steps {
                 sh '''#!/bin/bash
-			cd /root/.jenkins/workspace/t07
+			cd /root/.jenkins/workspace/t08
 
-			docker build -t 172.26.240.210/library/nginx:1.50.2 .
+			docker build -t 172.26.240.210/library/nginx:1.60.2 .
 
-　　　　　　　　　　　　docker push 172.26.240.210/library/nginx:1.50.2
+　　　　　　　　　　　　docker push 172.26.240.210/library/nginx:1.60.2
 
 			echo '打包上传成功'
 		'''
@@ -29,12 +29,26 @@ pipeline {
         stage("通知远程服务器拉取镜像，进行部署") {
             steps {
 		sh '''#!/bin/bash
-                        docker run -d -p 9999:80 --name nginx_test 172.26.240.210/library/nginx:1.50.2 nginx -g 'daemon off;'
+                        docker run -d -p 9999:80 --name nginx_test 172.26.240.210/library/nginx:1.60.2 nginx -g 'daemon off;'
 
 			echo "运行镜像OK"
 		'''
             }
         }
+
+	//配置构建后操作
+		post{
+        		always{
+          			echo 'Pipeline 构建成功'
+                   		publishHTML(target:[allowMissing: false,
+					 alwaysLinkToLastBuild: true,
+					 keepAll: true,
+					 reportDir: 'reports',
+					 reportFiles: '*.html',
+					 reportName: 'My Reports',
+					 reportTitles: 'The Report'])
+        	}
+    	}
 
     }
 }
